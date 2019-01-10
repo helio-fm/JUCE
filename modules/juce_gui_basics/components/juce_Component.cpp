@@ -544,7 +544,7 @@ void Component::setVisible (bool shouldBeVisible)
 
         if (! shouldBeVisible)
         {
-            ComponentHelpers::releaseAllCachedImageResources (*this);
+            // ComponentHelpers::releaseAllCachedImageResources (*this);
 
             if (hasKeyboardFocus (true))
             {
@@ -1150,30 +1150,43 @@ void Component::sendMovedResizedMessagesIfPending()
 
 void Component::sendMovedResizedMessages (bool wasMoved, bool wasResized)
 {
+#if DEBUG
     BailOutChecker checker (this);
+#endif
 
     if (wasMoved)
     {
         moved();
-
+#if DEBUG
         if (checker.shouldBailOut())
+        {
+            jassertfalse;
             return;
+        }
+#endif
     }
 
     if (wasResized)
     {
         resized();
-
+#if DEBUG
         if (checker.shouldBailOut())
+        {
+            jassertfalse;
             return;
+        }
+#endif
 
         for (int i = childComponentList.size(); --i >= 0;)
         {
             childComponentList.getUnchecked(i)->parentSizeChanged();
-
+#if DEBUG
             if (checker.shouldBailOut())
+            {
+                jassertfalse;
                 return;
-
+            }
+#endif
             i = jmin (i, childComponentList.size());
         }
     }
@@ -1181,6 +1194,7 @@ void Component::sendMovedResizedMessages (bool wasMoved, bool wasResized)
     if (parentComponent != nullptr)
         parentComponent->childBoundsChanged (this);
 
+#if DEBUG
     if (! checker.shouldBailOut())
     {
         componentListeners.callChecked (checker, [this, wasMoved, wasResized] (ComponentListener& l)
@@ -1188,6 +1202,12 @@ void Component::sendMovedResizedMessages (bool wasMoved, bool wasResized)
             l.componentMovedOrResized (*this, wasMoved, wasResized);
         });
     }
+#else
+    componentListeners.call([this, wasMoved, wasResized](ComponentListener& l)
+    {
+        l.componentMovedOrResized(*this, wasMoved, wasResized);
+    });
+#endif
 }
 
 void Component::setSize (int w, int h)                  { setBounds (getX(), getY(), w, h); }
@@ -1977,8 +1997,8 @@ void Component::paintComponentAndChildren (Graphics& g)
         }
     }
 
-    Graphics::ScopedSaveState ss (g);
-    paintOverChildren (g);
+    // Graphics::ScopedSaveState ss (g);
+    // paintOverChildren (g);
 }
 
 void Component::paintEntireComponent (Graphics& g, bool ignoreAlphaLevel)
@@ -1995,27 +2015,7 @@ void Component::paintEntireComponent (Graphics& g, bool ignoreAlphaLevel)
     flags.isInsidePaintCall = true;
    #endif
 
-    if (effect != nullptr)
-    {
-        auto scale = g.getInternalContext().getPhysicalPixelScaleFactor();
-
-        auto scaledBounds = getLocalBounds() * scale;
-
-        Image effectImage (flags.opaqueFlag ? Image::RGB : Image::ARGB,
-                           scaledBounds.getWidth(), scaledBounds.getHeight(), ! flags.opaqueFlag);
-        {
-            Graphics g2 (effectImage);
-            g2.addTransform (AffineTransform::scale ((float) scaledBounds.getWidth()  / (float) getWidth(),
-                                                     (float) scaledBounds.getHeight() / (float) getHeight()));
-            paintComponentAndChildren (g2);
-        }
-
-        Graphics::ScopedSaveState ss (g);
-
-        g.addTransform (AffineTransform::scale (1.0f / scale));
-        effect->applyEffect (effectImage, g, scale, ignoreAlphaLevel ? 1.0f : getAlpha());
-    }
-    else if (componentTransparency > 0 && ! ignoreAlphaLevel)
+    if (componentTransparency > 0 && ! ignoreAlphaLevel)
     {
         if (componentTransparency < 255)
         {
@@ -2073,32 +2073,15 @@ Image Component::createComponentSnapshot (Rectangle<int> areaToGrab,
     return image;
 }
 
-void Component::setComponentEffect (ImageEffectFilter* newEffect)
-{
-    if (effect != newEffect)
-    {
-        effect = newEffect;
-        repaint();
-    }
-}
-
 //==============================================================================
 LookAndFeel& Component::getLookAndFeel() const noexcept
 {
-    for (auto* c = this; c != nullptr; c = c->parentComponent)
-        if (auto lf = c->lookAndFeel.get())
-            return *lf;
-
     return LookAndFeel::getDefaultLookAndFeel();
 }
 
-void Component::setLookAndFeel (LookAndFeel* newLookAndFeel)
+void Component::setLookAndFeel (LookAndFeel*)
 {
-    if (lookAndFeel != newLookAndFeel)
-    {
-        lookAndFeel = newLookAndFeel;
-        sendLookAndFeelChange();
-    }
+    // not using this
 }
 
 void Component::lookAndFeelChanged() {}
@@ -2135,7 +2118,7 @@ Colour Component::findColour (int colourID, bool inheritFromParent) const
         return Colour ((uint32) static_cast<int> (*v));
 
     if (inheritFromParent && parentComponent != nullptr
-         && (lookAndFeel == nullptr || ! lookAndFeel->isColourSpecified (colourID)))
+         && !getLookAndFeel().isColourSpecified (colourID))
         return parentComponent->findColour (colourID, true);
 
     return getLookAndFeel().findColour (colourID);
@@ -2178,18 +2161,6 @@ void Component::copyAllExplicitColoursTo (Component& target) const
 //==============================================================================
 Component::Positioner::Positioner (Component& c) noexcept  : component (c)
 {
-}
-
-Component::Positioner* Component::getPositioner() const noexcept
-{
-    return positioner.get();
-}
-
-void Component::setPositioner (Positioner* newPositioner)
-{
-    // You can only assign a positioner to the component that it was created for!
-    jassert (newPositioner == nullptr || this == &(newPositioner->getComponent()));
-    positioner.reset (newPositioner);
 }
 
 //==============================================================================
