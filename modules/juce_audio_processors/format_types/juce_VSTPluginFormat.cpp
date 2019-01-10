@@ -41,15 +41,7 @@ JUCE_BEGIN_IGNORE_WARNINGS_MSVC (4996)
 
 namespace Vst2
 {
-struct AEffect;
-
-// If the following files cannot be found then you are probably trying to host
-// VST2 plug-ins. To do this you must have a VST2 SDK in your header search
-// paths or use the "VST (Legacy) SDK Folder" field in the Projucer. The VST2
-// SDK can be obtained from the vstsdk3610_11_06_2018_build_37 (or older) VST3
-// SDK or JUCE version 5.3.2.
-#include <pluginterfaces/vst2.x/aeffect.h>
-#include <pluginterfaces/vst2.x/aeffectx.h>
+#include <vestige/vestige.h>
 }
 
 #include "juce_VSTCommon.h"
@@ -2399,7 +2391,7 @@ private:
                     struct OptionalFrameRate
                     {
                         bool valid;
-                        Vst2::VstInt32 rate;
+                        Vst2::int32 rate;
                     };
 
                     const auto optionalFrameRate = [&fr = position.frameRate]() -> OptionalFrameRate
@@ -2413,7 +2405,7 @@ private:
                             case 60:        return { true, fr.isPullDown() ? Vst2::kVstSmpte599fps : Vst2::kVstSmpte60fps };
                         }
 
-                        return { false, Vst2::VstSmpteFrameRate{} };
+                        return { false, Vst2::kVstSmpte24fps };
                     }();
 
                     vstHostTime.flags |= optionalFrameRate.valid ? Vst2::kVstSmpteValid : 0;

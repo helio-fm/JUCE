@@ -1126,27 +1126,6 @@ public:
     bool isPaintingUnclipped() const noexcept;
 
     //==============================================================================
-    /** Adds an effect filter to alter the component's appearance.
-
-        When a component has an effect filter set, then this is applied to the
-        results of its paint() method. There are a few preset effects, such as
-        a drop-shadow or glow, but they can be user-defined as well.
-
-        The effect that is passed in will not be deleted by the component - the
-        caller must take care of deleting it.
-
-        To remove an effect from a component, pass a null pointer in as the parameter.
-
-        @see ImageEffectFilter, DropShadowEffect, GlowEffect
-    */
-    void setComponentEffect (ImageEffectFilter* newEffect);
-
-    /** Returns the current component effect.
-        @see setComponentEffect
-    */
-    ImageEffectFilter* getComponentEffect() const noexcept              { return effect; }
-
-    //==============================================================================
     /** Finds the appropriate look-and-feel to use for this component.
 
         If the component hasn't had a look-and-feel explicitly set, this will
@@ -2520,9 +2499,7 @@ private:
     std::unique_ptr<Positioner> positioner;
     std::unique_ptr<AffineTransform> affineTransform;
     Array<Component*> childComponentList;
-    WeakReference<LookAndFeel> lookAndFeel;
     MouseCursor cursor;
-    ImageEffectFilter* effect = nullptr;
     std::unique_ptr<CachedComponentImage> cachedImage;
 
     class MouseListenerList;
