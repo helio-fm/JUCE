@@ -1092,27 +1092,6 @@ public:
     bool isPaintingUnclipped() const noexcept;
 
     //==============================================================================
-    /** Adds an effect filter to alter the component's appearance.
-
-        When a component has an effect filter set, then this is applied to the
-        results of its paint() method. There are a few preset effects, such as
-        a drop-shadow or glow, but they can be user-defined as well.
-
-        The effect that is passed in will not be deleted by the component - the
-        caller must take care of deleting it.
-
-        To remove an effect from a component, pass a null pointer in as the parameter.
-
-        @see ImageEffectFilter, DropShadowEffect, GlowEffect
-    */
-    void setComponentEffect (ImageEffectFilter* newEffect);
-
-    /** Returns the current component effect.
-        @see setComponentEffect
-    */
-    ImageEffectFilter* getComponentEffect() const noexcept              { return effect; }
-
-    //==============================================================================
     /** Finds the appropriate look-and-feel to use for this component.
 
         If the component hasn't had a look-and-feel explicitly set, this will
@@ -2322,20 +2301,7 @@ public:
 
         JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Positioner)
     };
-
-    /** Returns the Positioner object that has been set for this component.
-        @see setPositioner()
-    */
-    Positioner* getPositioner() const noexcept;
-
-    /** Sets a new Positioner object for this component.
-        If there's currently another positioner set, it will be deleted. The object that is passed in
-        will be deleted automatically by this component when it's no longer required. Pass a null pointer
-        to clear the current positioner.
-        @see getPositioner()
-    */
-    void setPositioner (Positioner* newPositioner);
-
+    
     /** Gives the component a CachedComponentImage that should be used to buffer its painting.
         The object that is passed-in will be owned by this component, and will be deleted automatically
         later on.
@@ -2476,12 +2442,9 @@ private:
     String componentName, componentID, componentTitle, componentDescription, componentHelpText;
     Component* parentComponent = nullptr;
     Rectangle<int> boundsRelativeToParent;
-    std::unique_ptr<Positioner> positioner;
     std::unique_ptr<AffineTransform> affineTransform;
     Array<Component*> childComponentList;
-    WeakReference<LookAndFeel> lookAndFeel;
     MouseCursor cursor;
-    ImageEffectFilter* effect = nullptr;
     std::unique_ptr<CachedComponentImage> cachedImage;
 
     class MouseListenerList;
