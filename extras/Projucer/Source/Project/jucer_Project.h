@@ -147,8 +147,10 @@ public:
     File getBinaryDataCppFile (int index) const;
     File getBinaryDataHeaderFile() const                        { return getBinaryDataCppFile (0).withFileExtension (".h"); }
 
+    static String getUnityBuildCppFilename()                    { return "UnityBuild.cpp"; }
     static String getAppConfigFilename()                        { return "AppConfig.h"; }
     static String getPluginDefinesFilename()                    { return "JucePluginDefines.h"; }
+    static String getJuceSourceFilenameRoot()                   { return "JuceLibraryCode"; }
     static String getJuceSourceHFilename()                      { return "JuceHeader.h"; }
 
     //==============================================================================
@@ -233,6 +235,11 @@ public:
     String getVSTNumMIDIInputsString() const          { return pluginVSTNumMidiInputsValue.get(); }
     String getVSTNumMIDIOutputsString() const         { return pluginVSTNumMidiOutputsValue.get(); }
 
+    Value getUsePrecompiledHeaders()                    { return getProjectValue (Ids::usePrecompiledHeaders); }
+    Value getPrecompiledHeaderFileName()                { return getProjectValue (Ids::precompiledHeaderFileName); }
+    Value getPrecompiledHeaderExcludedWildcard()        { return getProjectValue (Ids::precompiledHeaderExcludedWildcard); }
+
+    //==============================================================================
     static bool checkMultiChoiceVar (const ValueWithDefault& valueToCheck, Identifier idToCheck) noexcept
     {
         if (! valueToCheck.get().isArray())

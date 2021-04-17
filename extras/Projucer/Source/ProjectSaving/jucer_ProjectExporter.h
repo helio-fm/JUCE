@@ -148,6 +148,14 @@ public:
 
     bool shouldUseGNUExtensions() const                   { return gnuExtensionsValue.get(); }
 
+    bool shouldUseUnityBuild() const                      { return unityBuildValue.get(); }
+    Value getUsePrecompiledHeaders()                      { return getSetting (Ids::usePrecompiledHeaders); }
+    bool getUsePrecompiledHeadersBool() const             { return (getSettingString (Ids::usePrecompiledHeaders) == "1"); }
+    Value getPrecompiledHeaderFileName()                  { return getSetting (Ids::precompiledHeaderFileName); }
+    Value getPrecompiledHeaderExcludedWildcard()          { return getSetting(Ids::precompiledHeaderExcludedWildcard); }
+    String getPrecompiledHeaderFileNameString() const     { return (getSettingString (Ids::precompiledHeaderFileName)); }
+    String getPrecompiledHeaderExcludedWildcardString() const  { return (getSettingString(Ids::precompiledHeaderExcludedWildcard)); }
+
     String getVSTLegacyPathString() const                 { return vstLegacyPathValueWrapper.getCurrentValue(); }
     String getAAXPathString() const                       { return aaxPathValueWrapper.getCurrentValue(); }
     String getRTASPathString() const                      { return rtasPathValueWrapper.getCurrentValue(); }
@@ -192,6 +200,8 @@ public:
     Array<Project::Item>& getAllGroups() noexcept               { jassert (itemGroups.size() > 0); return itemGroups; }
     const Array<Project::Item>& getAllGroups() const noexcept   { jassert (itemGroups.size() > 0); return itemGroups; }
     Project::Item& getModulesGroup();
+    Project::Item getSourceGroup();
+    Project::Item getUnityBuildItem(const File &file, const String &generatedGroupId);
 
     //==============================================================================
     StringArray linuxLibs, linuxPackages, makefileExtraLinkerFlags;
@@ -384,7 +394,8 @@ protected:
     ValueWithDefaultWrapper vstLegacyPathValueWrapper, rtasPathValueWrapper, aaxPathValueWrapper;
 
     ValueWithDefault targetLocationValue, extraCompilerFlagsValue, extraLinkerFlagsValue, externalLibrariesValue,
-                     userNotesValue, gnuExtensionsValue, bigIconValue, smallIconValue, extraPPDefsValue;
+                     userNotesValue, gnuExtensionsValue, bigIconValue, smallIconValue, extraPPDefsValue,
+                     unityBuildValue;
 
     Value projectCompilerFlagSchemesValue;
     HashMap<String, ValueWithDefault> compilerFlagSchemesMap;

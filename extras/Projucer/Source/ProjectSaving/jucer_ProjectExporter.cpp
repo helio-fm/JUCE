@@ -206,11 +206,13 @@ ProjectExporter::ProjectExporter (Project& p, const ValueTree& state)
       gnuExtensionsValue      (settings, Ids::enableGNUExtensions, getUndoManager()),
       bigIconValue            (settings, Ids::bigIcon,             getUndoManager()),
       smallIconValue          (settings, Ids::smallIcon,           getUndoManager()),
-      extraPPDefsValue        (settings, Ids::extraDefs,           getUndoManager())
+      extraPPDefsValue        (settings, Ids::extraDefs,           getUndoManager()),
+      unityBuildValue         (settings, Ids::unityBuild,          getUndoManager())
 {
     projectCompilerFlagSchemesValue = project.getProjectValue (Ids::compilerFlagSchemes);
     projectCompilerFlagSchemesValue.addListener (this);
     updateCompilerFlagValues();
+    unityBuildValue.setDefault(false);
 }
 
 String ProjectExporter::getUniqueName() const
@@ -308,6 +310,24 @@ void ProjectExporter::createPropertyEditors (PropertyListBuilder& props)
         props.add (new TextPropertyComponent (externalLibrariesValue, "External Libraries to Link", 8192, true),
                    "Additional libraries to link (one per line). You should not add any platform specific decoration to these names. "
                    "This string can contain references to preprocessor definitions in the form ${NAME_OF_VALUE}, which will be replaced with their values.");
+
+        props.add(new ChoicePropertyComponent(unityBuildValue, "Unity Build"),
+            "Enabling this will optionally generate unity build in addition - or instead if - the normal one. "
+            "Note that you better disable precompiled headers for unity builds.");
+
+        props.add (new BooleanPropertyComponent(getUsePrecompiledHeaders(), "Use Precompiled Headers", "Use Precompiled Headers"),
+            "Enable this to generate precompiled headers with the project.  Make sure to set the precompiled header "
+            "file name as well.");
+ 
+        props.add (new TextPropertyComponent(getPrecompiledHeaderFileName(), "Precompiled Header File Name", 1024, false),
+            "The name of the .hpp or .h precompiled header file to be used.  Enter the name of a header file already in your project. "
+            "On Windows platforms, you should create a corresponding .cpp file with the same base name of this header file, and add it "
+            "to this project.  That .cpp "
+            "file should contain exactly one line, and that is: #include \"your_precompiled_header_file_name\" .");
+
+        props.add(new TextPropertyComponent(getPrecompiledHeaderExcludedWildcard(), "Precompiled Header Exclusions", 1024, false),
+            "The wildcard list for the filenames to be excluded from using a precompiled header, separated by comma or semicolon. "
+            "Typically used for JUCE modules and binary data, e.g. \"BinaryData*;include_juce_*\" .");
 
         if (! isVisualStudio())
             props.add (new ChoicePropertyComponent (gnuExtensionsValue, "GNU Compiler Extensions"),
@@ -532,6 +552,39 @@ StringArray ProjectExporter::getLinuxPackages (PackageDependencyType type) const
     packages.removeDuplicates (false);
 
     return packages;
+}
+
+Project::Item ProjectExporter::getSourceGroup()
+{
+    for (const auto &subgroup : itemGroups)
+    {
+        for (int i = 0; i < subgroup.getNumChildren(); ++i)
+        {
+            auto child = subgroup.getChild(i);
+            const auto childName = child.getName();
+            if (child.isGroup() && childName.equalsIgnoreCase("source"))
+            {
+                return child;
+            }
+        }
+    }
+
+    jassertfalse;
+    return itemGroups.getReference(0);
+}
+
+Project::Item ProjectExporter::getUnityBuildItem(const File &file, const String &generatedGroupId)
+{
+    for (const auto &subgroup : itemGroups)
+    {
+        if (subgroup.isGroup() && subgroup.getID() == generatedGroupId)
+        {
+            return subgroup.findItemForFile(file);
+        }
+    }
+
+    jassertfalse;
+    return itemGroups.getReference(0);
 }
 
 void ProjectExporter::addProjectPathToBuildPathList (StringArray& pathList,
