@@ -3254,7 +3254,7 @@ public:
         auto numOutputBuses = pluginInstance->getBusCount (false);
 
         if (numIns > numInputBuses || numOuts > numOutputBuses)
-            return false;
+            return kResultFalse;
 
         auto requested = pluginInstance->getBusesLayout();
 
