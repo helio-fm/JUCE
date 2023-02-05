@@ -672,7 +672,7 @@ public:
         if (! validateLayouts<FloatType> (data.inputs, data.inputs + vstInputs, inputMap))
             return getBlankBuffer (usedChannels, (int) data.numSamples);
 
-        setUpInputChannels (data, (size_t) vstInputs, scratchBuffer, inputMap,  channels);
+        setUpInputChannels (data, (size_t) vstInputs, scratchBuffer, inputMap, channels);
         setUpOutputChannels (scratchBuffer, outputMap, channels);
 
         const auto channelPtr = channels.empty() ? scratchBuffer.getArrayOfWritePointers()
@@ -690,7 +690,7 @@ private:
     {
         for (size_t busIndex = 0; busIndex < map.size(); ++busIndex)
         {
-            const auto mapping = map[busIndex];
+            const auto& mapping = map[busIndex];
 
             if (! mapping.isClientActive())
                 continue;
