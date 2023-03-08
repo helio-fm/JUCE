@@ -198,14 +198,9 @@ public:
 
     int getSwapInterval() const noexcept    { return swapFrames; }
 
-    struct Locker
-    {
-        explicit Locker (NativeContext& ctx) : lock (ctx.mutex) {}
-        const ScopedLock lock;
-    };
+    struct Locker { Locker (NativeContext&) {} };
 
 private:
-    CriticalSection mutex;
     Component& component;
     JuceGLView* view = nil;
     CAEAGLLayer* glLayer = nil;

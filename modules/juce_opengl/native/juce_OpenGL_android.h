@@ -299,11 +299,7 @@ public:
     void surfaceDestroyed (LocalRef<jobject> holder) override;
 
     //==============================================================================
-    struct Locker
-    {
-        explicit Locker (NativeContext& ctx) : lock (ctx.mutex) {}
-        const ScopedLock lock;
-    };
+    struct Locker { Locker (NativeContext&) {} };
 
     Component& component;
 
@@ -394,7 +390,6 @@ private:
     }
 
     //==============================================================================
-    CriticalSection mutex;
     bool hasInitialised = false;
 
     GlobalRef surfaceView;
