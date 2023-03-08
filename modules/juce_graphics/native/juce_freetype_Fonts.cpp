@@ -185,7 +185,7 @@ public:
         {
             for (const auto& iter : RangedDirectoryIterator (File::getCurrentWorkingDirectory().getChildFile (path), true))
             {
-                if (iter.getFile().hasFileExtension ("ttf;pfb;pcf;otf"))
+                if (iter.getFile().hasFileExtension ("ttf;ttc;pfb;pcf;otf"))
                     scanFont (iter.getFile());
             }
         }

@@ -638,8 +638,6 @@ public:
             decButton.reset();
         }
 
-        owner.setComponentEffect (lf.getSliderEffect (owner));
-
         owner.resized();
         owner.repaint();
     }

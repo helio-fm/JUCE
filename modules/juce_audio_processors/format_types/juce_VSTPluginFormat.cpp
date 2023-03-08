@@ -41,15 +41,7 @@ JUCE_BEGIN_IGNORE_WARNINGS_MSVC (4996)
 
 namespace Vst2
 {
-struct AEffect;
-
-// If the following files cannot be found then you are probably trying to host
-// VST2 plug-ins. To do this you must have a VST2 SDK in your header search
-// paths or use the "VST (Legacy) SDK Folder" field in the Projucer. The VST2
-// SDK can be obtained from the vstsdk3610_11_06_2018_build_37 (or older) VST3
-// SDK or JUCE version 5.3.2.
-#include <pluginterfaces/vst2.x/aeffect.h>
-#include <pluginterfaces/vst2.x/aeffectx.h>
+#include <vestige/vestige.h>
 }
 
 #include "juce_VSTCommon.h"
@@ -2358,7 +2350,7 @@ private:
                     else
                         vstHostTime.flags &= ~Vst2::kVstTransportChanged;
 
-                    const auto optionalFrameRate = [fr = position->getFrameRate()]() -> Optional<Vst2::VstInt32>
+                    const auto optionalFrameRate = [fr = position->getFrameRate()]() -> Optional<Vst2::int32>
                     {
                         if (! fr.hasValue())
                             return {};
@@ -2376,7 +2368,7 @@ private:
                     }();
 
                     vstHostTime.flags |= optionalFrameRate ? Vst2::kVstSmpteValid : 0;
-                    vstHostTime.smpteFrameRate = optionalFrameRate.orFallback (Vst2::VstSmpteFrameRate{});
+                    vstHostTime.smpteFrameRate = optionalFrameRate.orFallback (Vst2::kVstSmpte24fps);
                     const auto effectiveRate = position->getFrameRate().hasValue() ? position->getFrameRate()->getEffectiveRate() : 0.0;
                     vstHostTime.smpteOffset = (int32) (position->getTimeInSeconds().orFallback (0.0) * 80.0 * effectiveRate + 0.5);
 
