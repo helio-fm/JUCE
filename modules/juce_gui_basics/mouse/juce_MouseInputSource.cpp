@@ -256,12 +256,7 @@ public:
     {
         const auto& newScreenPos = newPointerState.position;
 
-#if JUCE_ANDROID
-        // a quick and dirty fix for weird multi-touch issues in some Android shells
-        if (! isDragging() || ! getComponentUnderMouse())
-#else
         if (! isDragging())
-#endif
             setComponentUnderMouse (findComponentAt (newScreenPos), newPointerState, time);
 
         if ((newPointerState != lastPointerState) || forceUpdate)

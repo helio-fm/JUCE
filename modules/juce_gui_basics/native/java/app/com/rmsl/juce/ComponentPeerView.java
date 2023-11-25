@@ -146,6 +146,24 @@ public final class ComponentPeerView extends ViewGroup
     private native void handleMouseUp (long host, int index, float x, float y, long time);
     private native void handleAccessibilityHover (long host, int action, float x, float y, long time);
 
+    public static float getRawX(MotionEvent event, int pointerIndex)
+    {
+        float offset = event.getRawX() - event.getX();
+        if (pointerIndex < event.getPointerCount()) {
+            return event.getX(pointerIndex) + offset;
+        }
+        return 0.0f;
+    }
+
+    public static float getRawY(MotionEvent event, int pointerIndex)
+    {
+        float offset = event.getRawY() - event.getY();
+        if (pointerIndex < event.getPointerCount()) {
+            return event.getY(pointerIndex) + offset;
+        }
+        return 0.0f;
+    }
+
     @Override
     public boolean onTouchEvent (MotionEvent event)
     {
@@ -168,18 +186,8 @@ public final class ComponentPeerView extends ViewGroup
 
             case MotionEvent.ACTION_MOVE:
             {
-                handleMouseDrag (host, event.getPointerId (0), event.getRawX (), event.getRawY (), time);
-
-                int n = event.getPointerCount ();
-
-                if (n > 1)
-                {
-                    int point[] = new int[2];
-                    getLocationOnScreen (point);
-
-                    for (int i = 1; i < n; ++i)
-                        handleMouseDrag (host, event.getPointerId (i), event.getX (i) + point[0], event.getY (i) + point[1], time);
-                }
+                for (int i = 0; i < event.getPointerCount (); ++i)
+                    handleMouseDrag (host, event.getPointerId (i), getRawX (event, i), getRawY (event, i), time);
 
                 return true;
             }
@@ -187,34 +195,19 @@ public final class ComponentPeerView extends ViewGroup
             case MotionEvent.ACTION_POINTER_UP:
             {
                 int i = (action & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
-
-                if (i == 0)
-                {
-                    handleMouseUp (host, event.getPointerId (0), event.getRawX (), event.getRawY (), time);
-                } else
-                {
-                    int point[] = new int[2];
-                    getLocationOnScreen (point);
-
-                    handleMouseUp (host, event.getPointerId (i), event.getX (i) + point[0], event.getY (i) + point[1], time);
-                }
+                handleMouseUp (host, event.getPointerId (i), getRawX (event, i), getRawY (event, i), time);
                 return true;
             }
 
             case MotionEvent.ACTION_POINTER_DOWN:
             {
-                int i = (action & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
-
-                if (i == 0)
-                {
-                    handleMouseDown (host, event.getPointerId (0), event.getRawX (), event.getRawY (), time);
-                } else
-                {
-                    int point[] = new int[2];
-                    getLocationOnScreen (point);
-
-                    handleMouseDown (host, event.getPointerId (i), event.getX (i) + point[0], event.getY (i) + point[1], time);
-                }
+                // this is a nasty hack to avoid multi-touch issues on some platforms like Realme UI,
+                // where secondary pointer down events are just broken, but drag events are not;
+                // in C++ code, handleMouseDownCallback is basically a wrapper around handleMouseDragCallback,
+                // so skipping those broken events should do the trick, and it shouldn't be noticeable,
+                // since secondary touches are only used for zooming/panning anyway:
+                //int i = (action & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
+                //handleMouseDown (host, event.getPointerId (i), getRawX (event, i), getRawY (event, i), time);
                 return true;
             }
 
