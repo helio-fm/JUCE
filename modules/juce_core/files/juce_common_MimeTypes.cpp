@@ -30,7 +30,7 @@ struct MimeTypeTableEntry
 {
     const char* fileExtension, *mimeType;
 
-    static MimeTypeTableEntry table[647];
+    static MimeTypeTableEntry table[653];
 };
 
 static StringArray getMatches (const String& toMatch,
@@ -62,7 +62,7 @@ StringArray getFileExtensionsForMimeType (const String& mimeType)
 } // namespace MimeTypeTable
 
 //==============================================================================
-MimeTypeTableEntry MimeTypeTableEntry::table[647] =
+MimeTypeTableEntry MimeTypeTableEntry::table[653] =
 {
     {"3dm",      "x-world/x-3dmf"},
     {"3dmf",     "x-world/x-3dmf"},
@@ -513,6 +513,12 @@ MimeTypeTableEntry MimeTypeTableEntry::table[647] =
     {"sf2",      "application/octet-stream"},
     {"sf2",      "audio/x-soundfont"},
     {"sf2",      "audio/sf2"},
+    {"sf3",      "application/octet-stream"},
+    {"sf3",      "audio/x-soundfont"},
+    {"sf3",      "audio/sf3"},
+    {"sf4",      "application/octet-stream"},
+    {"sf4",      "audio/x-soundfont"},
+    {"sf4",      "audio/sf4"},
     {"sgm",      "text/sgml"},
     {"sgm",      "text/x-sgml"},
     {"sgml",     "text/sgml"},
