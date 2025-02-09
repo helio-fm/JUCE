@@ -487,7 +487,11 @@ void Button::mouseUp (const MouseEvent& e)
 
         WeakReference<Component> deletionWatcher (this);
 
-        internalClickCallback (e.mods);
+        // a hack for mobile platforms to prevent triggering checkboxes/radiobuttons after dragging
+        if (!this->isToggleable() || !e.source.hasMovedSignificantlySincePressed())
+        {
+            internalClickCallback (e.mods);
+        }
 
         if (deletionWatcher != nullptr)
             updateState (isMouseSourceOver (e), false);
