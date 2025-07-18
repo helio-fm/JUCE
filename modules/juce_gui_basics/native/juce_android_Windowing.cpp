@@ -678,7 +678,7 @@ public:
             if (isTimerRunning())
                 return;
 
-            startTimer (500);
+            startTimer (100);
         }
         else
         {
@@ -689,8 +689,8 @@ public:
         {
             if (navBarsHidden || shouldBeFullScreen)
                 if (auto* display = Desktop::getInstance().getDisplays().getPrimaryDisplay())
-                    return navBarsHidden ? display->totalArea
-                                         : display->userArea;
+                    return shouldNavBarsBeHidden (shouldBeFullScreen) ?
+                        display->totalArea : display->userArea;
 
             return lastNonFullscreenBounds.isEmpty() ? getBounds() : lastNonFullscreenBounds;
         }();
