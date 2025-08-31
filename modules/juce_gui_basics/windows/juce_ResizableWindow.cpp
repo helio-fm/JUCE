@@ -430,7 +430,7 @@ void ResizableWindow::setFullScreen (const bool shouldBeFullScreen)
 {
     if (shouldBeFullScreen != isFullScreen())
     {
-        updateLastPosIfShowing();
+        updateLastPosIfNotFullScreen();
         fullscreen = shouldBeFullScreen;
 
         if (isOnDesktop())
