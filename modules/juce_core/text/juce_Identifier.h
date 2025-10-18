@@ -20,6 +20,12 @@
   ==============================================================================
 */
 
+#if JUCE_WINDOWS && !JUCE_MINGW
+  #define NO_INLINE __declspec(noinline)
+#else
+  #define NO_INLINE __attribute__((noinline))
+#endif
+
 namespace juce
 {
 
@@ -45,13 +51,13 @@ public:
         Because this name may need to be used in contexts such as script variables or XML
         tags, it must only contain ascii letters and digits, or the underscore character.
     */
-    Identifier (const char* name);
+    NO_INLINE Identifier (const char* name);
 
     /** Creates an identifier with a specified name.
         Because this name may need to be used in contexts such as script variables or XML
         tags, it must only contain ascii letters and digits, or the underscore character.
     */
-    Identifier (const String& name);
+    NO_INLINE Identifier (const String& name);
 
     /** Creates an identifier with a specified name.
         Because this name may need to be used in contexts such as script variables or XML

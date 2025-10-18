@@ -95,7 +95,7 @@ LookAndFeel& Desktop::getDefaultLookAndFeel() noexcept
         return *lf;
 
     if (defaultLookAndFeel == nullptr)
-        defaultLookAndFeel.reset (new LookAndFeel_V4());
+        defaultLookAndFeel.reset (new LookAndFeel_V2());
 
     auto lf = defaultLookAndFeel.get();
     jassert (lf != nullptr);

@@ -55,7 +55,7 @@ static Image getIconFromIcnsFile (const File& icnsFile, const int size)
 
     OwnedArray<juce::ImageFileFormat> internalFormats;
     internalFormats.add (new  PNGImageFormat());
-    internalFormats.add (new JPEGImageFormat());
+    // internalFormats.add (new JPEGImageFormat());
 
     Array<Image> images;
     auto maxWidth = 0;

@@ -153,7 +153,7 @@ static const vorbis_info_mapping0 _map_nominal[2]={
 
 #include "modes/setup_44.h"
 #include "modes/setup_44u.h"
-#include "modes/setup_44p51.h"
+// #include "modes/setup_44p51.h"
 #include "modes/setup_32.h"
 #include "modes/setup_8.h"
 #include "modes/setup_11.h"
@@ -163,7 +163,7 @@ static const vorbis_info_mapping0 _map_nominal[2]={
 
 static const ve_setup_data_template *const setup_list[]={
   &ve_setup_44_stereo,
-  &ve_setup_44_51,
+  // &ve_setup_44_51,
   &ve_setup_44_uncoupled,
 
   &ve_setup_32_stereo,

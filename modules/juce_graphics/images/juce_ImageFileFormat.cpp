@@ -38,13 +38,12 @@ private:
     DefaultImageFormats() noexcept
     {
         formats[0] = &png;
-        formats[1] = &jpg;
-        formats[2] = &gif;
-        formats[3] = nullptr;
+        formats[1] = &gif;
+        formats[2] = nullptr;
     }
 
     PNGImageFormat  png;
-    JPEGImageFormat jpg;
+    // JPEGImageFormat jpg;
     GIFImageFormat  gif;
 
     ImageFileFormat* formats[4];

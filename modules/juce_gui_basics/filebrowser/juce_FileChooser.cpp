@@ -211,6 +211,12 @@ std::shared_ptr<FileChooser::Pimpl> FileChooser::createPimpl (int flags, FilePre
     jassert (! (((flags & FileBrowserComponent::saveMode) != 0)
                 && ((flags & FileBrowserComponent::openMode) != 0)));
 
+    jassert(useNativeDialogBox);
+
+    jassert (! (((flags & FileBrowserComponent::canSelectFiles) != 0)
+            && ((flags & FileBrowserComponent::canSelectDirectories) != 0)));
+
+/*
    #if JUCE_WINDOWS
     const bool selectsFiles       = (flags & FileBrowserComponent::canSelectFiles) != 0;
     const bool selectsDirectories = (flags & FileBrowserComponent::canSelectDirectories) != 0;
@@ -224,6 +230,9 @@ std::shared_ptr<FileChooser::Pimpl> FileChooser::createPimpl (int flags, FilePre
     }
 
     return std::make_unique<NonNative> (*this, flags, previewComp);
+*/
+
+    return showPlatformDialog (*this, flags, previewComp);
 }
 
 Array<File> FileChooser::getResults() const noexcept
