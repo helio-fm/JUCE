@@ -387,7 +387,11 @@ private:
 class CodeEditorComponent::GutterComponent  : public Component
 {
 public:
-    GutterComponent() {}
+    GutterComponent()
+    {
+        this->setWantsKeyboardFocus(false);
+        this->setInterceptsMouseClicks(false, false);
+    }
 
     void paint (Graphics& g) override
     {
@@ -404,8 +408,8 @@ public:
         const int lastLineToDraw = jmin (editor.lines.size(), clip.getBottom() / lineH + 1,
                                          lastNumLines - editor.firstLineOnScreen);
 
-        auto lineNumberFont = editor.getFont().withHeight (jmin (13.0f, lineHeightFloat * 0.8f));
-        auto w = (float) getWidth() - 2.0f;
+        auto lineNumberFont = editor.getFont();
+        auto w = (float) getWidth() - 4.0f;
         GlyphArrangement ga;
 
         for (int i = firstLineToDraw; i < lastLineToDraw; ++i)
@@ -481,7 +485,7 @@ CodeEditorComponent::~CodeEditorComponent()
 
 int CodeEditorComponent::getGutterSize() const noexcept
 {
-    return showLineNumbers ? 35 : 5;
+    return showLineNumbers ? 42 : 5;
 }
 
 void CodeEditorComponent::loadContent (const String& newContent)
@@ -828,7 +832,7 @@ void CodeEditorComponent::scrollToKeepLinesOnScreen (Range<int> rangeToShow)
 
 void CodeEditorComponent::scrollToKeepCaretOnScreen()
 {
-    if (getWidth() > 0 && getHeight() > 0)
+    if (this->isVisible() && getWidth() > 0 && getHeight() > 0)
     {
         auto caretLine = caretPos.getLineNumber();
         scrollToKeepLinesOnScreen ({ caretLine, caretLine });
@@ -1686,7 +1690,7 @@ void CodeEditorComponent::setFont (const Font& newFont)
 {
     font = newFont;
     charWidth = font.getStringWidthFloat ("0");
-    lineHeight = roundToInt (font.getHeight());
+    lineHeight = roundToInt (font.getHeight() + 2);
     resized();
 }
 

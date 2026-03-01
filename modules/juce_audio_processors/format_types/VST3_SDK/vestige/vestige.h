@@ -238,6 +238,8 @@ enum
     kSpeakerArrUserDefined = -2, kSpeakerArrEmpty = -1, kSpeakerArrMono = 0, kSpeakerArrStereo, kSpeakerArrStereoSurround, kSpeakerArrStereoCenter, kSpeakerArrStereoSide, kSpeakerArrStereoCLfe, kSpeakerArr30Cine, kSpeakerArr30Music, kSpeakerArr31Cine, kSpeakerArr31Music, kSpeakerArr40Cine, kSpeakerArr40Music, kSpeakerArr41Cine, kSpeakerArr41Music, kSpeakerArr50, kSpeakerArr51, kSpeakerArr60Cine, kSpeakerArr60Music, kSpeakerArr61Cine, kSpeakerArr61Music, kSpeakerArr70Cine, kSpeakerArr70Music, kSpeakerArr71Cine, kSpeakerArr71Music, kSpeakerArr80Cine, kSpeakerArr80Music, kSpeakerArr81Cine, kSpeakerArr81Music, kSpeakerArr102
 };
 
+#if JUCE_GCC || JUCE_MSVC
 #pragma pack(pop)
+#endif
 
 #endif // __vestige__

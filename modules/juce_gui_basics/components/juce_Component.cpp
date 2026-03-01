@@ -1199,7 +1199,7 @@ void Component::setBounds (int x, int y, int w, int h)
     }
 }
 
-void Component::sendMovedResizedMessagesIfPending()
+inline void Component::sendMovedResizedMessagesIfPending()
 {
     const bool wasMoved   = flags.isMoveCallbackPending;
     const bool wasResized = flags.isResizeCallbackPending;
@@ -1213,7 +1213,7 @@ void Component::sendMovedResizedMessagesIfPending()
     }
 }
 
-void Component::sendMovedResizedMessages (bool wasMoved, bool wasResized)
+inline void Component::sendMovedResizedMessages (bool wasMoved, bool wasResized)
 {
 #if DEBUG
     BailOutChecker checker (this);
@@ -1757,9 +1757,11 @@ void Component::internalHierarchyChanged()
         i = jmin (i, childComponentList.size());
     }
 
+#if DEBUG
     if (flags.hasHeavyweightPeerFlag)
         if (auto* handler = getAccessibilityHandler())
             handler->notifyAccessibilityEvent (AccessibilityEvent::structureChanged);
+#endif
 }
 
 //==============================================================================
@@ -1955,7 +1957,7 @@ void Component::repaintParent()
         parentComponent->internalRepaint (ComponentHelpers::convertToParentSpace (*this, getLocalBounds()));
 }
 
-void Component::internalRepaint (Rectangle<int> area)
+inline void Component::internalRepaint (Rectangle<int> area)
 {
     area = area.getIntersection (getLocalBounds());
 
@@ -1963,7 +1965,7 @@ void Component::internalRepaint (Rectangle<int> area)
         internalRepaintUnchecked (area, false);
 }
 
-void Component::internalRepaintUnchecked (Rectangle<int> area, bool isEntireComponent)
+inline void Component::internalRepaintUnchecked (Rectangle<int> area, bool isEntireComponent)
 {
     // if component methods are being called from threads other than the message
     // thread, you'll need to use a MessageManagerLock object to make sure it's thread-safe.
@@ -2013,7 +2015,7 @@ void Component::paintOverChildren (Graphics&)
 }
 
 //==============================================================================
-void Component::paintWithinParentContext (Graphics& g)
+inline void Component::paintWithinParentContext (Graphics& g)
 {
     g.setOrigin (getPosition());
 
@@ -2023,7 +2025,7 @@ void Component::paintWithinParentContext (Graphics& g)
         paintEntireComponent (g, false);
 }
 
-void Component::paintComponentAndChildren (Graphics& g)
+inline void Component::paintComponentAndChildren (Graphics& g)
 {
     auto clipBounds = g.getClipBounds();
 

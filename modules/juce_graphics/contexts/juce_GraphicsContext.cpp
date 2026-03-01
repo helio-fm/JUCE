@@ -129,7 +129,7 @@ namespace
 
     //==============================================================================
     template <typename Type>
-    Rectangle<Type> coordsToRectangle (Type x, Type y, Type w, Type h) noexcept
+    inline Rectangle<Type> coordsToRectangle (Type x, Type y, Type w, Type h) noexcept
     {
        #if JUCE_DEBUG
         const int maxVal = 0x3fffffff;

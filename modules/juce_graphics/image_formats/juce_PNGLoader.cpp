@@ -99,7 +99,7 @@ namespace pnglibNamespace
   #define PNG_INFO_IMAGE_SUPPORTED
   #define PNG_IO_STATE_SUPPORTED
   #define PNG_POINTER_INDEXING_SUPPORTED
-  #define PNG_PROGRESSIVE_READ_SUPPORTED
+  // #define PNG_PROGRESSIVE_READ_SUPPORTED
   #define PNG_READ_16BIT_SUPPORTED
   #define PNG_READ_ALPHA_MODE_SUPPORTED
   #define PNG_READ_ANCILLARY_CHUNKS_SUPPORTED
@@ -152,24 +152,29 @@ namespace pnglibNamespace
   #define PNG_READ_tIME_SUPPORTED
   #define PNG_READ_tRNS_SUPPORTED
   #define PNG_READ_zTXt_SUPPORTED
+  /*
   #define PNG_SAVE_INT_32_SUPPORTED
   #define PNG_SAVE_UNKNOWN_CHUNKS_SUPPORTED
+  */
   #define PNG_SEQUENTIAL_READ_SUPPORTED
   #define PNG_SET_CHUNK_CACHE_LIMIT_SUPPORTED
   #define PNG_SET_CHUNK_MALLOC_LIMIT_SUPPORTED
   #define PNG_SET_UNKNOWN_CHUNKS_SUPPORTED
   #define PNG_SET_USER_LIMITS_SUPPORTED
+  /*
   #define PNG_SIMPLIFIED_READ_AFIRST_SUPPORTED
   #define PNG_SIMPLIFIED_READ_BGR_SUPPORTED
   #define PNG_SIMPLIFIED_WRITE_AFIRST_SUPPORTED
   #define PNG_SIMPLIFIED_WRITE_BGR_SUPPORTED
   #define PNG_STDIO_SUPPORTED
   #define PNG_STORE_UNKNOWN_CHUNKS_SUPPORTED
+  */
   #define PNG_TEXT_SUPPORTED
   #define PNG_TIME_RFC1123_SUPPORTED
   #define PNG_UNKNOWN_CHUNKS_SUPPORTED
   #define PNG_USER_CHUNKS_SUPPORTED
   #define PNG_USER_LIMITS_SUPPORTED
+  /*
   #define PNG_USER_TRANSFORM_INFO_SUPPORTED
   #define PNG_USER_TRANSFORM_PTR_SUPPORTED
   #define PNG_WARNINGS_SUPPORTED
@@ -216,6 +221,7 @@ namespace pnglibNamespace
   #define PNG_WRITE_tIME_SUPPORTED
   #define PNG_WRITE_tRNS_SUPPORTED
   #define PNG_WRITE_zTXt_SUPPORTED
+  */
   #define PNG_bKGD_SUPPORTED
   #define PNG_cHRM_SUPPORTED
   #define PNG_gAMA_SUPPORTED
@@ -338,10 +344,12 @@ namespace PNGHelpers
 {
     using namespace pnglibNamespace;
 
+    /*
     static void JUCE_CDECL writeDataCallback (png_structp png, png_bytep data, png_size_t length)
     {
         static_cast<OutputStream*> (png_get_io_ptr (png))->write (data, length);
     }
+    */
 
    #if ! JUCE_USING_COREIMAGE_LOADER
     static void JUCE_CDECL readCallback (png_structp png, png_bytep data, png_size_t length)
@@ -537,8 +545,9 @@ Image PNGImageFormat::decodeImage (InputStream& in)
    #endif
 }
 
-bool PNGImageFormat::writeImageToStream (const Image& image, OutputStream& out)
+bool PNGImageFormat::writeImageToStream (const Image&, OutputStream&)
 {
+    /*
     using namespace pnglibNamespace;
     auto width = image.getWidth();
     auto height = image.getHeight();
@@ -618,7 +627,8 @@ bool PNGImageFormat::writeImageToStream (const Image& image, OutputStream& out)
 
     png_write_end (pngWriteStruct, pngInfoStruct);
     png_destroy_write_struct (&pngWriteStruct, &pngInfoStruct);
-
+    */
+    jassertfalse;
     return true;
 }
 

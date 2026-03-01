@@ -401,7 +401,7 @@ public:
     /** @internal */
     void lookAndFeelChanged() override;
 
-private:
+protected:
     //==============================================================================
     CodeDocument& document;
 

@@ -580,7 +580,8 @@ private:
 
 std::unique_ptr<AccessibilityHandler> Label::createAccessibilityHandler()
 {
-    return std::make_unique<LabelAccessibilityHandler> (*this);
+    //return std::make_unique<LabelAccessibilityHandler> (*this);
+    return nullptr;
 }
 
 } // namespace juce

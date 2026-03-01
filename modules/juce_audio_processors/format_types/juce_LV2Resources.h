@@ -92,6 +92,7 @@ R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "instance-access.meta.ttl",
@@ -172,7 +173,7 @@ to the LV2_Handle of the plugin instance.
 
 )lv2ttl"
 }
-
+*/
 }
 }
 , juce::lv2::Bundle
@@ -1005,6 +1006,7 @@ pg:AmbisonicBH3P3Group
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "port-groups.meta.ttl",
@@ -1154,14 +1156,14 @@ convert an ambisonic stream for any speaker configuration.
 
 )lv2ttl"
 }
-
+*/
 }
 }
 , juce::lv2::Bundle
 {
 "ui",
 {
-juce::lv2::BundleResource
+/*juce::lv2::BundleResource
 {
 "ui.meta.ttl",
 R"lv2ttl(@prefix dcs: <http://ontologi.es/doap-changeset#> .
@@ -1793,7 +1795,7 @@ Write Effect
 
 )lv2ttl"
 }
-, juce::lv2::BundleResource
+,*/ juce::lv2::BundleResource
 {
 "manifest.ttl",
 R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
@@ -2130,6 +2132,7 @@ opts:supportedOption
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "options.meta.ttl",
@@ -2264,7 +2267,7 @@ provide the user an opportunity to specify one if possible.
 
 )lv2ttl"
 }
-
+*/
 }
 }
 , juce::lv2::Bundle
@@ -2285,6 +2288,7 @@ R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "resize-port.meta.ttl",
@@ -2364,6 +2368,7 @@ resizing, SHOULD do so or reduced functionality may result.
 
 )lv2ttl"
 }
+*/
 , juce::lv2::BundleResource
 {
 "resize-port.ttl",
@@ -2432,6 +2437,7 @@ R"lv2ttl(@prefix doap: <http://usefulinc.com/ns/doap#> .
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "meta.ttl",
@@ -3602,6 +3608,7 @@ SHOULD be lv2:connectionOptional, and may be ignored by hosts.
 
 )lv2ttl"
 }
+*/
 , juce::lv2::BundleResource
 {
 "lv2core.ttl",
@@ -4386,6 +4393,7 @@ R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "port-props.meta.ttl",
@@ -4593,7 +4601,7 @@ where:
 
 )lv2ttl"
 }
-
+*/
 }
 }
 , juce::lv2::Bundle
@@ -4614,6 +4622,7 @@ R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "midi.meta.ttl",
@@ -4772,6 +4781,7 @@ This is a status byte with the lower nibble set to zero.
 
 )lv2ttl"
 }
+*/
 , juce::lv2::BundleResource
 {
 "midi.ttl",
@@ -5164,6 +5174,7 @@ R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "atom.meta.ttl",
@@ -5711,6 +5722,7 @@ contained in the port, including header.
 
 )lv2ttl"
 }
+*/
 , juce::lv2::BundleResource
 {
 "atom.ttl",
@@ -5984,6 +5996,7 @@ R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "buf-size.meta.ttl",
@@ -6146,6 +6159,7 @@ auxiliary buffers large enough to copy the input.
 
 )lv2ttl"
 }
+*/
 , juce::lv2::BundleResource
 {
 "buf-size.ttl",
@@ -6239,6 +6253,7 @@ R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "morph.meta.ttl",
@@ -6334,6 +6349,7 @@ and SHOULD NOT be listed in the static plugin data.
 
 )lv2ttl"
 }
+*/
 , juce::lv2::BundleResource
 {
 "morph.ttl",
@@ -6471,6 +6487,7 @@ state:StateChanged
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "state.meta.ttl",
@@ -6627,9 +6644,9 @@ NOT create files in any other locations.
 
     :::c
 
-    /* Namespace for this plugin's keys.  This SHOULD be something that could be
-       published as a document, even if that document does not exist right now.
-    */
+    // Namespace for this plugin's keys.  This SHOULD be something that could be
+    // published as a document, even if that document does not exist right now.
+
     #define NS_MY "http://example.org/myplugin/schema#"
 
     #define DEFAULT_GREETING "Hello"
@@ -6855,7 +6872,7 @@ Then, later reload the path like so:
     :::c
     char* read_path(LV2_State_Map_Path* map_path, FILE* myfile)
     {
-        /* Obviously this is not production quality code! */
+        // Obviously this is not production quality code!
         char abstract_path[1024];
         fscanf(myfile, "%s", abstract_path);
         return map_path->absolute_path(map_path->handle, abstract_path);
@@ -6943,14 +6960,14 @@ parameter.
 
 )lv2ttl"
 }
-
+*/
 }
 }
 , juce::lv2::Bundle
 {
 "time",
 {
-juce::lv2::BundleResource
+/*juce::lv2::BundleResource
 {
 "time.meta.ttl",
 R"lv2ttl(@prefix dcs: <http://ontologi.es/doap-changeset#> .
@@ -7067,7 +7084,7 @@ speed, -1.0 is reverse, and so on.
 
 )lv2ttl"
 }
-, juce::lv2::BundleResource
+,*/ juce::lv2::BundleResource
 {
 "manifest.ttl",
 R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
@@ -7229,6 +7246,7 @@ R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "units.meta.ttl",
@@ -7388,6 +7406,7 @@ sense to do so.
 
 )lv2ttl"
 }
+*/
 , juce::lv2::BundleResource
 {
 "units.ttl",
@@ -7793,6 +7812,7 @@ R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "patch.meta.ttl",
@@ -8172,6 +8192,7 @@ interfaces to present appropriate controls.  For example:
 
 )lv2ttl"
 }
+*/
 , juce::lv2::BundleResource
 {
 "patch.ttl",
@@ -8449,6 +8470,7 @@ R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "parameters.meta.ttl",
@@ -8529,6 +8551,7 @@ Typically, maximum value of 1 or 100 and minimum value of 0 should be used.
 
 )lv2ttl"
 }
+*/
 , juce::lv2::BundleResource
 {
 "parameters.ttl",
@@ -8757,6 +8780,7 @@ R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "urid.meta.ttl",
@@ -8846,6 +8870,7 @@ instance of LV2_URID_Unmap.
 
 )lv2ttl"
 }
+*/
 , juce::lv2::BundleResource
 {
 "urid.ttl",
@@ -8880,7 +8905,7 @@ urid:unmap
 {
 "uri-map",
 {
-juce::lv2::BundleResource
+/*juce::lv2::BundleResource
 {
 "uri-map.meta.ttl",
 R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
@@ -8957,7 +8982,7 @@ enumerations).
 
 )lv2ttl"
 }
-, juce::lv2::BundleResource
+,*/ juce::lv2::BundleResource
 {
 "manifest.ttl",
 R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
@@ -9011,6 +9036,7 @@ R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "log.meta.ttl",
@@ -9142,6 +9168,7 @@ LV2_LOG__log and data pointed to an instance of LV2_Log_Log.
 
 )lv2ttl"
 }
+*/
 , juce::lv2::BundleResource
 {
 "log.ttl",
@@ -9246,6 +9273,7 @@ dman:DynManifest
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "dynmanifest.meta.ttl",
@@ -9382,7 +9410,7 @@ would be used to parse a normal LV2 manifest (the bundle path).
 
 )lv2ttl"
 }
-
+*/
 }
 }
 , juce::lv2::Bundle
@@ -9403,6 +9431,7 @@ R"lv2ttl(@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "worker.meta.ttl",
@@ -9490,6 +9519,7 @@ NOT assume any relationship between different schedule features.
 
 )lv2ttl"
 }
+*/
 , juce::lv2::BundleResource
 {
 "worker.ttl",
@@ -9606,6 +9636,7 @@ pset:preset
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "presets.meta.ttl",
@@ -9743,7 +9774,7 @@ preset change.
 
 )lv2ttl"
 }
-
+*/
 }
 }
 , juce::lv2::Bundle
@@ -9855,6 +9886,7 @@ ev:inheritsTimeStamp
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "event.meta.ttl",
@@ -10106,7 +10138,7 @@ pl)lv2ttl" R"lv2ttl(ugin and provide a more sensible interface.
 
 )lv2ttl"
 }
-
+*/
 }
 }
 , juce::lv2::Bundle
@@ -10143,6 +10175,7 @@ R"lv2ttl(@prefix da: <http://lv2plug.in/ns/ext/data-access#> .
 
 )lv2ttl"
 }
+/*
 , juce::lv2::BundleResource
 {
 "data-access.meta.ttl",
@@ -10225,7 +10258,7 @@ to an instance of LV2_Extension_Data_Feature.
 
 )lv2ttl"
 }
-
+*/
 }
 }
 
