@@ -5190,6 +5190,17 @@ public:
     {
         world->loadAll();
 
+        // the LV2 plugin format is convoluted in every way possible,
+        // it supposedly needs some specification bundles as runtime dependencies,
+        // so JUCE devs bundle them in the binary to create dozens of temp files;
+        // however, lilv.h says that normal hosts should not need the
+        // lilv_world_load_bundle function and just use lilv_world_load_all;
+        // also, LV2 docs say that these bundles should be found in specific
+        // standard locations, user-specific and system-wide;
+        // finally, all LV2 plugins I've tested work the same way with and without them;
+        // so let's leave it up to users to take care about those bundles
+        // (see also the comment in juce_LV2Resources.h)
+        /*
         const auto tempFile = lv2ResourceFolder.getFile();
 
         if (tempFile.createDirectory())
@@ -5208,6 +5219,7 @@ public:
                 world->loadBundle (world->newFileUri (nullptr, pathString.toRawUTF8()));
             }
         }
+        */
     }
 
     ~Pimpl()

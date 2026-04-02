@@ -84,6 +84,7 @@ JUCESplashScreen::JUCESplashScreen (Component& parent)
     setAccessible (false);
 }
 
+#if JUCE_DISPLAY_SPLASH_SCREEN
 std::unique_ptr<Drawable> JUCESplashScreen::getSplashScreenLogo()
 {
     const char* svgData = R"JUCESPLASHSCREEN(
@@ -127,6 +128,7 @@ std::unique_ptr<Drawable> JUCESplashScreen::getSplashScreenLogo()
     jassert (svgXml != nullptr);
     return Drawable::createFromSVG (*svgXml);
 }
+#endif
 
 void JUCESplashScreen::paint (Graphics& g)
 {

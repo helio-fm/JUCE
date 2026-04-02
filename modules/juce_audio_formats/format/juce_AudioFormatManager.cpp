@@ -54,7 +54,7 @@ void AudioFormatManager::registerFormat (AudioFormat* newFormat, bool makeThisTh
 void AudioFormatManager::registerBasicFormats()
 {
     registerFormat (new WavAudioFormat(), true);
-    registerFormat (new AiffAudioFormat(), false);
+    //registerFormat (new AiffAudioFormat(), false);
 
    #if JUCE_USE_FLAC
     registerFormat (new FlacAudioFormat(), false);

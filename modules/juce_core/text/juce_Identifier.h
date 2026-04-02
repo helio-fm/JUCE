@@ -45,7 +45,7 @@ class JUCE_API  Identifier  final
 {
 public:
     /** Creates a null identifier. */
-    Identifier() noexcept;
+    NO_INLINE Identifier() noexcept;
 
     /** Creates an identifier with a specified name.
         Because this name may need to be used in contexts such as script variables or XML
@@ -63,22 +63,22 @@ public:
         Because this name may need to be used in contexts such as script variables or XML
         tags, it must only contain ascii letters and digits, or the underscore character.
     */
-    Identifier (String::CharPointerType nameStart, String::CharPointerType nameEnd);
+    NO_INLINE Identifier (String::CharPointerType nameStart, String::CharPointerType nameEnd);
 
     /** Creates a copy of another identifier. */
-    Identifier (const Identifier& other) noexcept;
+    NO_INLINE Identifier (const Identifier& other) noexcept;
 
     /** Creates a copy of another identifier. */
-    Identifier& operator= (const Identifier& other) noexcept;
+    NO_INLINE Identifier& operator= (const Identifier& other) noexcept;
 
     /** Creates a copy of another identifier. */
-    Identifier (Identifier&& other) noexcept;
+    NO_INLINE Identifier (Identifier&& other) noexcept;
 
     /** Creates a copy of another identifier. */
-    Identifier& operator= (Identifier&& other) noexcept;
+    NO_INLINE Identifier& operator= (Identifier&& other) noexcept;
 
     /** Destructor */
-    ~Identifier() noexcept;
+    NO_INLINE ~Identifier() noexcept;
 
     /** Compares two identifiers. This is a very fast operation. */
     inline bool operator== (const Identifier& other) const noexcept     { return name.getCharPointer() == other.name.getCharPointer(); }

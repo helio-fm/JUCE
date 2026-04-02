@@ -988,6 +988,7 @@ extern void         (KHRONOS_APIENTRY* const& glTexStorage3D) (GLenum target, GL
 extern void         (KHRONOS_APIENTRY* const& glGetInternalformativ) (GLenum target, GLenum internalformat, GLenum pname, GLsizei count, GLint *params);
 #endif
 
+/*
 #ifndef GL_ES_VERSION_3_1
 #define GL_ES_VERSION_3_1 1
 enum : GLenum
@@ -1743,6 +1744,7 @@ extern void         (KHRONOS_APIENTRY* const& glWaitSyncAPPLE) (GLsync sync, GLb
 extern void         (KHRONOS_APIENTRY* const& glGetInteger64vAPPLE) (GLenum pname, GLint64 *params);
 extern void         (KHRONOS_APIENTRY* const& glGetSyncivAPPLE) (GLsync sync, GLenum pname, GLsizei count, GLsizei *length, GLint *values);
 #endif
+*/
 
 #ifndef GL_APPLE_texture_format_BGRA8888
 #define GL_APPLE_texture_format_BGRA8888 1
@@ -1753,6 +1755,7 @@ enum : GLenum
 };
 #endif
 
+/*
 #ifndef GL_APPLE_texture_max_level
 #define GL_APPLE_texture_max_level 1
 enum : GLenum
@@ -5250,6 +5253,7 @@ enum : GLenum
 #ifndef GL_EXT_texture_shadow_lod
 #define GL_EXT_texture_shadow_lod 1
 #endif
+*/
 
 
 /** Load all available functions from the OpenGL core API.

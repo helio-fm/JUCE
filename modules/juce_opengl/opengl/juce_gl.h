@@ -2190,6 +2190,7 @@ extern void         (KHRONOS_APIENTRY* const& glGetMultisamplefv) (GLenum pname,
 extern void         (KHRONOS_APIENTRY* const& glSampleMaski) (GLuint maskNumber, GLbitfield mask);
 #endif
 
+/*
 #ifndef GL_VERSION_3_3
 #define GL_VERSION_3_3 1
 enum : GLenum
@@ -6001,6 +6002,7 @@ extern void         (KHRONOS_APIENTRY* const& glEGLImageTargetTextureStorageEXT)
 #ifndef GL_EXT_EGL_sync
 #define GL_EXT_EGL_sync 1
 #endif
+*/
 
 #ifndef GL_EXT_abgr
 #define GL_EXT_abgr 1
@@ -6019,6 +6021,7 @@ enum : GLenum
 };
 #endif
 
+/*
 #ifndef GL_EXT_bindable_uniform
 #define GL_EXT_bindable_uniform 1
 enum : GLenum
@@ -11989,6 +11992,7 @@ enum : GLenum
 #define GL_EXT_texture_shadow_lod 1
 #endif
 
+*/
 
 /** Load all available functions from the OpenGL core API.
 

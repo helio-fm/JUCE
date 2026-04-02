@@ -735,6 +735,7 @@
     X (void        , glGetMultisamplefv, (GLenum pname, GLuint index, GLfloat *val)) \
     X (void        , glSampleMaski, (GLuint maskNumber, GLbitfield mask))
 
+/*
 #define JUCE_GL_FUNCTIONS_GL_VERSION_3_3 \
     X (void        , glBindFragDataLocationIndexed, (GLuint program, GLuint colorNumber, GLuint index, const GLchar *name)) \
     X (GLint       , glGetFragDataIndex, (GLuint program, const GLchar *name)) \
@@ -3589,6 +3590,7 @@
     X (void        , glReplacementCodeuiTexCoord2fNormal3fVertex3fvSUN, (const GLuint *rc, const GLfloat *tc, const GLfloat *n, const GLfloat *v)) \
     X (void        , glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fSUN, (GLuint rc, GLfloat s, GLfloat t, GLfloat r, GLfloat g, GLfloat b, GLfloat a, GLfloat nx, GLfloat ny, GLfloat nz, GLfloat x, GLfloat y, GLfloat z)) \
     X (void        , glReplacementCodeuiTexCoord2fColor4fNormal3fVertex3fvSUN, (const GLuint *rc, const GLfloat *tc, const GLfloat *c, const GLfloat *n, const GLfloat *v))
+*/
 
 
 #if JUCE_STATIC_LINK_GL_VERSION_1_0
@@ -3679,6 +3681,7 @@
  #define JUCE_GL_FUNCTIONS_GL_VERSION_3_2_DYNAMIC JUCE_GL_FUNCTIONS_GL_VERSION_3_2
 #endif
 
+/*
 #if JUCE_STATIC_LINK_GL_VERSION_3_3
  #define JUCE_GL_FUNCTIONS_GL_VERSION_3_3_STATIC JUCE_GL_FUNCTIONS_GL_VERSION_3_3
  #define JUCE_GL_FUNCTIONS_GL_VERSION_3_3_DYNAMIC
@@ -3742,6 +3745,7 @@
  #define JUCE_GL_FUNCTIONS_GL_VERSION_4_6_STATIC
  #define JUCE_GL_FUNCTIONS_GL_VERSION_4_6_DYNAMIC JUCE_GL_FUNCTIONS_GL_VERSION_4_6
 #endif
+*/
 
 
 #define JUCE_STATIC_GL_FUNCTIONS \
@@ -3755,15 +3759,15 @@
     JUCE_GL_FUNCTIONS_GL_VERSION_2_1_STATIC \
     JUCE_GL_FUNCTIONS_GL_VERSION_3_0_STATIC \
     JUCE_GL_FUNCTIONS_GL_VERSION_3_1_STATIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_3_2_STATIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_3_3_STATIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_4_0_STATIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_4_1_STATIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_4_2_STATIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_4_3_STATIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_4_4_STATIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_4_5_STATIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_4_6_STATIC
+    JUCE_GL_FUNCTIONS_GL_VERSION_3_2_STATIC
+    //JUCE_GL_FUNCTIONS_GL_VERSION_3_3_STATIC \
+    //JUCE_GL_FUNCTIONS_GL_VERSION_4_0_STATIC \
+    //JUCE_GL_FUNCTIONS_GL_VERSION_4_1_STATIC \
+    //JUCE_GL_FUNCTIONS_GL_VERSION_4_2_STATIC \
+    //JUCE_GL_FUNCTIONS_GL_VERSION_4_3_STATIC \
+    //JUCE_GL_FUNCTIONS_GL_VERSION_4_4_STATIC \
+    //JUCE_GL_FUNCTIONS_GL_VERSION_4_5_STATIC \
+    //JUCE_GL_FUNCTIONS_GL_VERSION_4_6_STATIC
 
 #define JUCE_DYNAMIC_GL_FUNCTIONS \
     JUCE_GL_FUNCTIONS_GL_VERSION_1_0_DYNAMIC \
@@ -3776,16 +3780,17 @@
     JUCE_GL_FUNCTIONS_GL_VERSION_2_1_DYNAMIC \
     JUCE_GL_FUNCTIONS_GL_VERSION_3_0_DYNAMIC \
     JUCE_GL_FUNCTIONS_GL_VERSION_3_1_DYNAMIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_3_2_DYNAMIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_3_3_DYNAMIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_4_0_DYNAMIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_4_1_DYNAMIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_4_2_DYNAMIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_4_3_DYNAMIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_4_4_DYNAMIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_4_5_DYNAMIC \
-    JUCE_GL_FUNCTIONS_GL_VERSION_4_6_DYNAMIC
+    JUCE_GL_FUNCTIONS_GL_VERSION_3_2_DYNAMIC
+    //JUCE_GL_FUNCTIONS_GL_VERSION_3_3_DYNAMIC \
+    //JUCE_GL_FUNCTIONS_GL_VERSION_4_0_DYNAMIC \
+    //JUCE_GL_FUNCTIONS_GL_VERSION_4_1_DYNAMIC \
+    //JUCE_GL_FUNCTIONS_GL_VERSION_4_2_DYNAMIC \
+    //JUCE_GL_FUNCTIONS_GL_VERSION_4_3_DYNAMIC \
+    //JUCE_GL_FUNCTIONS_GL_VERSION_4_4_DYNAMIC \
+    //JUCE_GL_FUNCTIONS_GL_VERSION_4_5_DYNAMIC \
+    //JUCE_GL_FUNCTIONS_GL_VERSION_4_6_DYNAMIC
 
+/*
 #define JUCE_EXTENSION_GL_FUNCTIONS \
     JUCE_GL_FUNCTIONS_GL_3DFX_tbuffer \
     JUCE_GL_FUNCTIONS_GL_AMD_debug_output \
@@ -4040,6 +4045,7 @@
     JUCE_GL_FUNCTIONS_GL_SUN_mesh_array \
     JUCE_GL_FUNCTIONS_GL_SUN_triangle_list \
     JUCE_GL_FUNCTIONS_GL_SUN_vertex
+*/
 
 #define X(returns, name, params) \
     extern "C" KHRONOS_APICALL returns KHRONOS_APIENTRY name params; \
@@ -4051,7 +4057,7 @@ JUCE_STATIC_GL_FUNCTIONS
     static returns (KHRONOS_APIENTRY* juce_ ## name) params = nullptr; \
     returns (KHRONOS_APIENTRY* const& ::juce::gl::name) params = juce_ ## name;
 JUCE_DYNAMIC_GL_FUNCTIONS
-JUCE_EXTENSION_GL_FUNCTIONS
+//JUCE_EXTENSION_GL_FUNCTIONS
 #undef X
 
 void juce::gl::loadFunctions()
@@ -4066,7 +4072,7 @@ void juce::gl::loadExtensions()
 {
    #define X(returns, name, params) \
        juce_ ## name = reinterpret_cast<returns (KHRONOS_APIENTRY*) params> (::juce::OpenGLHelpers::getExtensionFunction (#name));
-    JUCE_EXTENSION_GL_FUNCTIONS
+    //JUCE_EXTENSION_GL_FUNCTIONS
    #undef X
 }
 

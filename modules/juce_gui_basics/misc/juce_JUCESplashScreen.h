@@ -53,7 +53,9 @@ class JUCE_API  JUCESplashScreen  : public Component,
 public:
     JUCESplashScreen (Component& parentToAddTo);
 
+#if JUCE_DISPLAY_SPLASH_SCREEN
     static std::unique_ptr<Drawable> getSplashScreenLogo();
+#endif
 
 private:
     std::unique_ptr<AccessibilityHandler> createAccessibilityHandler() override;

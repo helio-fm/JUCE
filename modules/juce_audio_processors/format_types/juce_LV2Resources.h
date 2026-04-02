@@ -29,7 +29,14 @@
 
 #pragma once
 
-#ifndef DOXYGEN
+// these are LV2 specification bundles with some type definitions;
+// I eventually hated the idea of embedding all this endless
+// 'drobilla drobilla something' garbage into the binary,
+// and commented out all .meta.ttl files (documentation and changelogs),
+// but later found out that JUCE works with LV2 plugins even without these specs,
+// they are more like additional typechecks for verifying plugin manifests,
+// so I removed all these bundles, see more context in juce_LV2PluginFormat.cpp:5193
+#if 0
 
 #include <vector>
 

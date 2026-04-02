@@ -75,7 +75,7 @@ void ResizableWindow::initialise (const bool shouldAddToDesktop)
 
     // BEGIN SECTION A
 
-   #if ! JucePlugin_Build_Standalone
+   #if ! JucePlugin_Build_Standalone && JUCE_DISPLAY_SPLASH_SCREEN
     splashScreen = new JUCESplashScreen (*this);
    #endif
 

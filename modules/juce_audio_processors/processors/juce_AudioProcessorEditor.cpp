@@ -69,7 +69,9 @@ void AudioProcessorEditor::initialise()
 
     // BEGIN SECTION A
 
+#if JUCE_DISPLAY_SPLASH_SCREEN
     splashScreen = new JUCESplashScreen (*this);
+#endif
 
     // END SECTION A
 

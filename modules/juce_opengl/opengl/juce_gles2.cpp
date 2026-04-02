@@ -297,6 +297,7 @@
     X (void        , glTexStorage3D, (GLenum target, GLsizei levels, GLenum internalformat, GLsizei width, GLsizei height, GLsizei depth)) \
     X (void        , glGetInternalformativ, (GLenum target, GLenum internalformat, GLenum pname, GLsizei count, GLint *params))
 
+/*
 #define JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_1 \
     X (void        , glDispatchCompute, (GLuint num_groups_x, GLuint num_groups_y, GLuint num_groups_z)) \
     X (void        , glDispatchComputeIndirect, (GLintptr indirect)) \
@@ -1208,6 +1209,7 @@
 #define JUCE_GL_FUNCTIONS_GL_QCOM_tiled_rendering \
     X (void        , glStartTilingQCOM, (GLuint x, GLuint y, GLuint width, GLuint height, GLbitfield preserveMask)) \
     X (void        , glEndTilingQCOM, (GLbitfield preserveMask))
+*/
 
 
 #if JUCE_STATIC_LINK_GL_ES_VERSION_2_0
@@ -1226,6 +1228,7 @@
  #define JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_0_DYNAMIC JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_0
 #endif
 
+/*
 #if JUCE_STATIC_LINK_GL_ES_VERSION_3_1
  #define JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_1_STATIC JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_1
  #define JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_1_DYNAMIC
@@ -1241,20 +1244,22 @@
  #define JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_2_STATIC
  #define JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_2_DYNAMIC JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_2
 #endif
+*/
 
 
 #define JUCE_STATIC_GL_FUNCTIONS \
     JUCE_GL_FUNCTIONS_GL_ES_VERSION_2_0_STATIC \
-    JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_0_STATIC \
-    JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_1_STATIC \
-    JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_2_STATIC
+    JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_0_STATIC
+    //JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_1_STATIC \
+    //JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_2_STATIC
 
 #define JUCE_DYNAMIC_GL_FUNCTIONS \
     JUCE_GL_FUNCTIONS_GL_ES_VERSION_2_0_DYNAMIC \
-    JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_0_DYNAMIC \
-    JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_1_DYNAMIC \
-    JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_2_DYNAMIC
+    JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_0_DYNAMIC
+    //JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_1_DYNAMIC \
+    //JUCE_GL_FUNCTIONS_GL_ES_VERSION_3_2_DYNAMIC
 
+/*
 #define JUCE_EXTENSION_GL_FUNCTIONS \
     JUCE_GL_FUNCTIONS_GL_AMD_framebuffer_multisample_advanced \
     JUCE_GL_FUNCTIONS_GL_AMD_performance_monitor \
@@ -1383,6 +1388,7 @@
     JUCE_GL_FUNCTIONS_GL_QCOM_shader_framebuffer_fetch_noncoherent \
     JUCE_GL_FUNCTIONS_GL_QCOM_shading_rate \
     JUCE_GL_FUNCTIONS_GL_QCOM_tiled_rendering
+*/
 
 #define X(returns, name, params) \
     extern "C" KHRONOS_APICALL returns KHRONOS_APIENTRY name params; \
@@ -1394,7 +1400,7 @@ JUCE_STATIC_GL_FUNCTIONS
     static returns (KHRONOS_APIENTRY* juce_ ## name) params = nullptr; \
     returns (KHRONOS_APIENTRY* const& ::juce::gl::name) params = juce_ ## name;
 JUCE_DYNAMIC_GL_FUNCTIONS
-JUCE_EXTENSION_GL_FUNCTIONS
+//JUCE_EXTENSION_GL_FUNCTIONS
 #undef X
 
 void juce::gl::loadFunctions()
@@ -1409,7 +1415,7 @@ void juce::gl::loadExtensions()
 {
    #define X(returns, name, params) \
        juce_ ## name = reinterpret_cast<returns (KHRONOS_APIENTRY*) params> (::juce::OpenGLHelpers::getExtensionFunction (#name));
-    JUCE_EXTENSION_GL_FUNCTIONS
+    //JUCE_EXTENSION_GL_FUNCTIONS
    #undef X
 }
 

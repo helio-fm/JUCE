@@ -613,6 +613,7 @@ public:
             bindVertexArray();
         }
 
+        /*
        #if JUCE_DEBUG
         if (getOpenGLVersion() >= Version { 4, 3 } && glDebugMessageCallback != nullptr)
         {
@@ -627,6 +628,7 @@ public:
             }, nullptr);
         }
        #endif
+        */
 
         const auto currentViewportArea = areaAndScale.get().area;
         glViewport (0, 0, currentViewportArea.getWidth(), currentViewportArea.getHeight());

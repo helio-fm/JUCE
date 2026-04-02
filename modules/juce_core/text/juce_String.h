@@ -34,6 +34,12 @@
  #undef JUCE_CF_BRIDGED_TYPE
 #endif
 
+#if JUCE_WINDOWS && !JUCE_MINGW
+  #define NO_INLINE __declspec(noinline)
+#else
+  #define NO_INLINE __attribute__((noinline))
+#endif
+
 namespace juce
 {
 
@@ -56,13 +62,13 @@ public:
     /** Creates an empty string.
         @see empty
     */
-    String() noexcept;
+    NO_INLINE String() noexcept;
 
     /** Creates a copy of another string. */
-    String (const String&) noexcept;
+    NO_INLINE String (const String&) noexcept;
 
     /** Move constructor */
-    String (String&&) noexcept;
+    NO_INLINE String (String&&) noexcept;
 
     /** Creates a string from a zero-terminated ascii text string.
 
@@ -77,7 +83,7 @@ public:
         because there's no other way to represent unicode strings in a way that isn't dependent
         on the compiler, source code editor and platform.
     */
-    String (const char* text);
+    NO_INLINE String (const char* text);
 
     /** Creates a string from a string of 8-bit ascii characters.
 
@@ -95,64 +101,64 @@ public:
         This will use up to the first maxChars characters of the string (or less if the string
         is actually shorter).
     */
-    String (const char* text, size_t maxChars);
+    NO_INLINE String (const char* text, size_t maxChars);
 
     /** Creates a string from a wchar_t character string.
         Depending on the platform, this may be treated as either UTF-32 or UTF-16.
     */
-    String (const wchar_t* text);
+    NO_INLINE String (const wchar_t* text);
 
     /** Creates a string from a wchar_t character string.
         Depending on the platform, this may be treated as either UTF-32 or UTF-16.
     */
-    String (const wchar_t* text, size_t maxChars);
+    NO_INLINE String (const wchar_t* text, size_t maxChars);
 
     //==============================================================================
     /** Creates a string from a UTF-8 character string */
-    String (CharPointer_UTF8 text);
+    NO_INLINE String (CharPointer_UTF8 text);
 
     /** Creates a string from a UTF-8 character string */
-    String (CharPointer_UTF8 text, size_t maxChars);
+    NO_INLINE String (CharPointer_UTF8 text, size_t maxChars);
 
     /** Creates a string from a UTF-8 character string */
-    String (CharPointer_UTF8 start, CharPointer_UTF8 end);
+    NO_INLINE String (CharPointer_UTF8 start, CharPointer_UTF8 end);
 
     //==============================================================================
     /** Creates a string from a UTF-16 character string */
-    String (CharPointer_UTF16 text);
+    NO_INLINE String (CharPointer_UTF16 text);
 
     /** Creates a string from a UTF-16 character string */
-    String (CharPointer_UTF16 text, size_t maxChars);
+    NO_INLINE String (CharPointer_UTF16 text, size_t maxChars);
 
     /** Creates a string from a UTF-16 character string */
-    String (CharPointer_UTF16 start, CharPointer_UTF16 end);
+    NO_INLINE String (CharPointer_UTF16 start, CharPointer_UTF16 end);
 
     //==============================================================================
     /** Creates a string from a UTF-32 character string */
-    String (CharPointer_UTF32 text);
+    NO_INLINE String (CharPointer_UTF32 text);
 
     /** Creates a string from a UTF-32 character string */
-    String (CharPointer_UTF32 text, size_t maxChars);
+    NO_INLINE String (CharPointer_UTF32 text, size_t maxChars);
 
     /** Creates a string from a UTF-32 character string */
-    String (CharPointer_UTF32 start, CharPointer_UTF32 end);
+    NO_INLINE String (CharPointer_UTF32 start, CharPointer_UTF32 end);
 
     //==============================================================================
     /** Creates a string from an ASCII character string */
-    String (CharPointer_ASCII text);
+    NO_INLINE String (CharPointer_ASCII text);
 
     /** Creates a string from a UTF-8 encoded std::string. */
-    String (const std::string&);
+    NO_INLINE String (const std::string&);
 
     /** Creates a string from a StringRef */
-    String (StringRef);
+    NO_INLINE String (StringRef);
 
     //==============================================================================
     /** Creates a string from a single character. */
     static String charToString (juce_wchar character);
 
     /** Destructor. */
-    ~String() noexcept;
+    NO_INLINE ~String() noexcept;
 
     /** This is the character encoding type used internally to store the string.
 
@@ -193,10 +199,10 @@ public:
     // Assignment and concatenation operators..
 
     /** Replaces this string's contents with another string. */
-    String& operator= (const String& other) noexcept;
+    NO_INLINE String& operator= (const String& other) noexcept;
 
     /** Moves the contents of another string to the receiver */
-    String& operator= (String&& other) noexcept;
+    NO_INLINE String& operator= (String&& other) noexcept;
 
     /** Appends another string at the end of this one. */
     String& operator+= (const String& stringToAppend);

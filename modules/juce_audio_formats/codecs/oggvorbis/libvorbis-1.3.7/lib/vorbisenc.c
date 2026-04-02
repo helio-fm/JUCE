@@ -152,37 +152,37 @@ static const vorbis_info_mapping0 _map_nominal[2]={
 };
 
 #include "modes/setup_44.h"
-#include "modes/setup_44u.h"
+// #include "modes/setup_44u.h"
 // #include "modes/setup_44p51.h"
-#include "modes/setup_32.h"
-#include "modes/setup_8.h"
-#include "modes/setup_11.h"
-#include "modes/setup_16.h"
-#include "modes/setup_22.h"
-#include "modes/setup_X.h"
+// #include "modes/setup_32.h"
+// #include "modes/setup_8.h"
+// #include "modes/setup_11.h"
+// #include "modes/setup_16.h"
+// #include "modes/setup_22.h"
+// #include "modes/setup_X.h"
 
 static const ve_setup_data_template *const setup_list[]={
   &ve_setup_44_stereo,
   // &ve_setup_44_51,
-  &ve_setup_44_uncoupled,
+  // &ve_setup_44_uncoupled,
 
-  &ve_setup_32_stereo,
-  &ve_setup_32_uncoupled,
+  // &ve_setup_32_stereo,
+  // &ve_setup_32_uncoupled,
 
-  &ve_setup_22_stereo,
-  &ve_setup_22_uncoupled,
-  &ve_setup_16_stereo,
-  &ve_setup_16_uncoupled,
+  // &ve_setup_22_stereo,
+  // &ve_setup_22_uncoupled,
+  // &ve_setup_16_stereo,
+  // &ve_setup_16_uncoupled,
 
-  &ve_setup_11_stereo,
-  &ve_setup_11_uncoupled,
-  &ve_setup_8_stereo,
-  &ve_setup_8_uncoupled,
+  // &ve_setup_11_stereo,
+  // &ve_setup_11_uncoupled,
+  // &ve_setup_8_stereo,
+  // &ve_setup_8_uncoupled,
 
-  &ve_setup_X_stereo,
-  &ve_setup_X_uncoupled,
-  &ve_setup_XX_stereo,
-  &ve_setup_XX_uncoupled,
+  // &ve_setup_X_stereo,
+  // &ve_setup_X_uncoupled,
+  // &ve_setup_XX_stereo,
+  // &ve_setup_XX_uncoupled,
   0
 };
 
