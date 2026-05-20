@@ -644,10 +644,14 @@ struct ShaderPrograms  : public ReferenceCountedObject
               imageLimits (program, "imageLimits")
         {}
 
-        void setMatrix (const AffineTransform& trans, int imageWidth, int imageHeight,
-                        float fullWidthProportion, float fullHeightProportion,
-                        float targetX, float targetY, bool isForTiling) const
+        void setMatrix (const AffineTransform& trans, const TextureInfo& textureInfo,
+                        float targetX, float targetY, bool applyNpotTilingWorkaround) const
         {
+            const auto imageWidth = textureInfo.imageWidth;
+            const auto imageHeight = textureInfo.imageHeight;
+            auto fullWidthProportion = textureInfo.fullWidthProportion;
+            auto fullHeightProportion = textureInfo.fullHeightProportion;
+
             auto t = trans.translated (-targetX, -targetY)
                           .inverted().scaled (fullWidthProportion  / (float) imageWidth,
                                               fullHeightProportion / (float) imageHeight);
@@ -655,22 +659,13 @@ struct ShaderPrograms  : public ReferenceCountedObject
             const GLfloat m[] = { t.mat00, t.mat01, t.mat02, t.mat10, t.mat11, t.mat12 };
             matrix.set (m, 6);
 
-            if (isForTiling)
+            if (applyNpotTilingWorkaround)
             {
                 fullWidthProportion  -= 0.5f / (float) imageWidth;
                 fullHeightProportion -= 0.5f / (float) imageHeight;
             }
 
             imageLimits.set (fullWidthProportion, fullHeightProportion);
-        }
-
-        void setMatrix (const AffineTransform& trans, const TextureInfo& textureInfo,
-                        float targetX, float targetY, bool isForTiling) const
-        {
-            setMatrix (trans,
-                       textureInfo.imageWidth, textureInfo.imageHeight,
-                       textureInfo.fullWidthProportion, textureInfo.fullHeightProportion,
-                       targetX, targetY, isForTiling);
         }
 
         OpenGLShaderProgram::Uniform imageTexture, matrix, imageLimits;
@@ -1561,7 +1556,11 @@ struct GLState
             }
         }
 
-        imageParams->setMatrix (transform, textureInfo, (float) target.bounds.getX(), (float) target.bounds.getY(), isTiledFill);
+        imageParams->setMatrix (transform,
+                                textureInfo,
+                                (float) target.bounds.getX(),
+                                (float) target.bounds.getY(),
+                                ! target.context.isTextureNpotSupported() && isTiledFill);
 
         if (maskParams != nullptr)
             maskParams->setBounds (*maskArea, target, 1);
