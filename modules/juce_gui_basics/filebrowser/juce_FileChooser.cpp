@@ -211,26 +211,18 @@ std::shared_ptr<FileChooser::Pimpl> FileChooser::createPimpl (int flags, FilePre
     jassert (! (((flags & FileBrowserComponent::saveMode) != 0)
                 && ((flags & FileBrowserComponent::openMode) != 0)));
 
-    jassert(useNativeDialogBox);
-
     jassert (! (((flags & FileBrowserComponent::canSelectFiles) != 0)
             && ((flags & FileBrowserComponent::canSelectDirectories) != 0)));
 
-/*
-   #if JUCE_WINDOWS
-    const bool selectsFiles       = (flags & FileBrowserComponent::canSelectFiles) != 0;
-    const bool selectsDirectories = (flags & FileBrowserComponent::canSelectDirectories) != 0;
-
-    if (useNativeDialogBox && ! (selectsFiles && selectsDirectories))
-   #else
-    if (useNativeDialogBox)
-   #endif
+    #if JUCE_LINUX
+    // on Linux, native file picker depends on kdialog or zenity, which may be unavailable:
+    if (!useNativeDialogBox)
     {
-        return showPlatformDialog (*this, flags, previewComp);
+        return std::make_unique<NonNative> (*this, flags, previewComp);
     }
-
-    return std::make_unique<NonNative> (*this, flags, previewComp);
-*/
+    #else
+    jassert(useNativeDialogBox);
+    #endif
 
     return showPlatformDialog (*this, flags, previewComp);
 }
