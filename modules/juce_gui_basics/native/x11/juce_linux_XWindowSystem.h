@@ -300,7 +300,7 @@ private:
     //==============================================================================
     void handleKeyPressEvent        (LinuxComponentPeer*, XKeyEvent&) const;
     void handleKeyReleaseEvent      (LinuxComponentPeer*, const XKeyEvent&) const;
-    void handleWheelEvent           (LinuxComponentPeer*, const XButtonPressedEvent&, float) const;
+    void handleWheelEvent           (LinuxComponentPeer*, const XButtonPressedEvent&, float, float) const;
     void handleButtonPressEvent     (LinuxComponentPeer*, const XButtonPressedEvent&, int) const;
     void handleButtonPressEvent     (LinuxComponentPeer*, const XButtonPressedEvent&) const;
     void handleButtonReleaseEvent   (LinuxComponentPeer*, const XButtonReleasedEvent&) const;
